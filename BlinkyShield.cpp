@@ -1,10 +1,11 @@
+#include "mbed.h"
 #include "BlinkyShield.h"
 #include "PixelArray.h"
 #include "WS2812.h"
 
-BlinkyShield::BlinkyShield()
+BlinkyShield::BlinkyShield(PinName pin)
 {
-    _shield = new WS2812(D6, STRIPLEN, 0, 5, 5, 0);
+    _shield = new WS2812((PinName)pin, STRIPLEN, 0, 5, 5, 0);
     _px = new PixelArray(STRIPLEN);
     Off();
 }
@@ -15,8 +16,11 @@ BlinkyShield::~BlinkyShield()
     delete _px;
 }
 
-void BlinkyShield::WipeColor(uint32_t color, uint8_t n_pixels=STRIPLEN)
+void BlinkyShield::WipeColor(uint32_t color, uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
 {
+    color = color*intensity/UINT8_MAX;
+    printf("color %u\r\n", color);
+
     for (uint8_t i = 0; i < STRIPLEN; i++)
     {
         if (i < n_pixels)
@@ -33,17 +37,17 @@ void BlinkyShield::WipeColor(uint32_t color, uint8_t n_pixels=STRIPLEN)
 
 void BlinkyShield::Red(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
 {
-    WipeColor(0xff0000*intensity/UINT8_MAX, n_pixels);
+    WipeColor(0xff0000, intensity, n_pixels);
 }
 
 void BlinkyShield::Green(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
 {
-    WipeColor(0x00ff00*intensity/UINT8_MAX, n_pixels);
+    WipeColor(0x00ff00, intensity, n_pixels);
 }
 
 void BlinkyShield::Blue(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
 {
-    WipeColor(0x0000ff*intensity/UINT8_MAX, n_pixels);
+    WipeColor(0x0000ff, intensity, n_pixels);
 }
 
 void BlinkyShield::Off()
