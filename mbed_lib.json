@@ -1,0 +1,18 @@
+{
+    "name": "blinky-shield",
+    "macros": ["__nop()=asm(\"nop\")"],
+    "config": {
+        "ws2812_zero_high": 0,
+        "ws2812_zero_low": 0,
+        "ws2812_one_high": 0,
+        "ws2812_one_low": 0
+    },
+    "target_overrides": {
+        "K64F": {
+            "ws2812_zero_high": 0,
+            "ws2812_zero_low": 5,
+            "ws2812_one_high": 5,
+            "ws2812_one_low": 0
+        }
+    }
+}

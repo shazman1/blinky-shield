@@ -8,7 +8,11 @@
 BlinkyShield::BlinkyShield(PinName pin)
 : Adafruit_GFX(5, 8)
 {
-    _shield = new WS2812((PinName)pin, STRIPLEN, 0, 5, 5, 0);
+    _shield = new WS2812((PinName)pin, STRIPLEN,
+        MBED_CONF_BLINKY_SHIELD_WS2812_ZERO_HIGH,
+        MBED_CONF_BLINKY_SHIELD_WS2812_ZERO_LOW,
+        MBED_CONF_BLINKY_SHIELD_WS2812_ONE_HIGH,
+        MBED_CONF_BLINKY_SHIELD_WS2812_ONE_LOW);
     _px = new PixelArray(STRIPLEN);
     Off();
 }
