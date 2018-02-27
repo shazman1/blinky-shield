@@ -72,12 +72,7 @@ void BlinkyShield::drawPixel(int16_t x, int16_t y, uint16_t color)
 
     uint8_t n = y + (this->width() - x - 1) * this->height();
 
-    uint8_t r = color >> 11;
-    uint8_t g = color >> 5 & 0x3f;
-    uint8_t b = color & 0x1f;
-    uint32_t c = r << 16 | g << 8 | b;
-
-    _px->Set(n, c & 0xffffff);
+    _px->Set(n, colorCvtRev(color));
     _shield->write_offsets(_px->getBuf(),0,0,0);
 }
 
@@ -107,4 +102,22 @@ void BlinkyShield::clear()
 {
     this->off();
     this->setCursor(0, 0);
+}
+
+uint16_t BlinkyShield::colorCvt(uint32_t color)
+{
+    uint32_t r = (color >> 16 & 0xff) * 0x1f / 0xff;
+    uint32_t g = (color >> 8  & 0xff) * 0x3f / 0xff;
+    uint32_t b = (color >> 0  & 0xff) * 0x1f / 0xff;
+
+    return r << 11 | g << 5 | b;
+}
+
+uint32_t BlinkyShield::colorCvtRev(uint16_t color)
+{
+    uint32_t r = (color >> 11 & 0x1f) * 0xff / 0x1f;
+    uint32_t g = (color >> 5  & 0x3f) * 0xff / 0x3f;
+    uint32_t b = (color >> 0  & 0x1f) * 0xff / 0x1f;
+
+    return r << 16 | g << 8 | b;
 }

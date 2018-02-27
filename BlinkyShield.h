@@ -22,6 +22,8 @@ public:
     void scroll(const char *fmt, ...);
     void clear();
     void setIntensity(uint8_t intensity);
+    uint16_t colorCvt(uint32_t color);
+    uint32_t colorCvtRev(uint16_t color);
 
 private:
     PixelArray* _px;
