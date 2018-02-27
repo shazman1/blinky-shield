@@ -4,7 +4,7 @@
 int main()
 {
     BlinkyShield* blinky_shield;
-    uint32_t BLINKY_COLOR = 0x00ffff;
+    uint32_t BLINKY_COLOR = CYAN;
     uint8_t BLINKY_COLOR_INTENSITY = 10;
     #define BLINKY_PIN D13
 
