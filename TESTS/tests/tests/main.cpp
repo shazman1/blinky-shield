@@ -9,16 +9,17 @@ int main()
     #define BLINKY_PIN D13
 
     blinky_shield = new BlinkyShield(BLINKY_PIN);
+    blinky_shield->setIntensity(10);
 
-    blinky_shield->Red(BLINKY_COLOR_INTENSITY, 40);
+    blinky_shield->red();
     wait_ms(500);
-    blinky_shield->Green(BLINKY_COLOR_INTENSITY, 40);
+    blinky_shield->green();
     wait_ms(500);
-    blinky_shield->Blue(BLINKY_COLOR_INTENSITY, 40);
+    blinky_shield->blue();
     wait_ms(500);
-    blinky_shield->Off();
+    blinky_shield->off();
     wait_ms(500);
-    blinky_shield->WipeColor(BLINKY_COLOR, BLINKY_COLOR_INTENSITY, 40);
+    blinky_shield->wipeColor(BLINKY_COLOR);
     wait_ms(500);
     blinky_shield->clear();
     blinky_shield->setTextColor(BLINKY_COLOR);

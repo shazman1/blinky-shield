@@ -14,7 +14,7 @@ BlinkyShield::BlinkyShield(PinName pin)
         MBED_CONF_BLINKY_SHIELD_WS2812_ONE_HIGH,
         MBED_CONF_BLINKY_SHIELD_WS2812_ONE_LOW);
     _px = new PixelArray(STRIPLEN);
-    Off();
+    off();
 }
 
 BlinkyShield::~BlinkyShield()
@@ -23,10 +23,14 @@ BlinkyShield::~BlinkyShield()
     delete _px;
 }
 
-void BlinkyShield::WipeColor(uint32_t color, uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
+void BlinkyShield::setIntensity(uint8_t intensity)
 {
-    color = color*intensity/UINT8_MAX;
+    _shield->useII(WS2812::GLOBAL);
+    _shield->setII(intensity);
+}
 
+void BlinkyShield::wipeColor(uint32_t color, uint8_t n_pixels)
+{
     for (uint8_t i = 0; i < STRIPLEN; i++)
     {
         if (i < n_pixels)
@@ -41,24 +45,24 @@ void BlinkyShield::WipeColor(uint32_t color, uint8_t intensity=UINT8_MAX, uint8_
     _shield->write_offsets(_px->getBuf(),0,0,0);
 }
 
-void BlinkyShield::Red(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
+void BlinkyShield::red(uint8_t n_pixels)
 {
-    WipeColor(0xff0000, intensity, n_pixels);
+    wipeColor(0xff0000, n_pixels);
 }
 
-void BlinkyShield::Green(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
+void BlinkyShield::green(uint8_t n_pixels)
 {
-    WipeColor(0x00ff00, intensity, n_pixels);
+    wipeColor(0x00ff00, n_pixels);
 }
 
-void BlinkyShield::Blue(uint8_t intensity=UINT8_MAX, uint8_t n_pixels=STRIPLEN)
+void BlinkyShield::blue(uint8_t n_pixels)
 {
-    WipeColor(0x0000ff, intensity, n_pixels);
+    wipeColor(0x0000ff, n_pixels);
 }
 
-void BlinkyShield::Off()
+void BlinkyShield::off()
 {
-    WipeColor(0);
+    wipeColor(0);
 }
 
 void BlinkyShield::drawPixel(int16_t x, int16_t y, uint16_t color)
@@ -101,6 +105,6 @@ void BlinkyShield::scroll(const char *fmt, ...)
 
 void BlinkyShield::clear()
 {
-    this->Off();
+    this->off();
     this->setCursor(0, 0);
 }

@@ -13,14 +13,15 @@ class BlinkyShield : public Adafruit_GFX
 public:
     BlinkyShield(PinName pin=D6);
     ~BlinkyShield();
-    void WipeColor(uint32_t, uint8_t, uint8_t);
-    void Red(uint8_t, uint8_t);
-    void Green(uint8_t, uint8_t);
-    void Blue(uint8_t, uint8_t);
-    void Off();
+    void wipeColor(uint32_t color, uint8_t n_pixels=STRIPLEN);
+    void red(uint8_t n_pixels=STRIPLEN);
+    void green(uint8_t n_pixels=STRIPLEN);
+    void blue(uint8_t n_pixels=STRIPLEN);
+    void off();
     void drawPixel(int16_t x, int16_t y, uint16_t color);
     void scroll(const char *fmt, ...);
     void clear();
+    void setIntensity(uint8_t intensity);
 
 private:
     PixelArray* _px;
