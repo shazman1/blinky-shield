@@ -29,13 +29,14 @@ void BlinkyShield::setIntensity(uint8_t intensity)
     _shield->setII(intensity);
 }
 
-void BlinkyShield::wipeColor(uint32_t color, uint8_t n_pixels)
+void BlinkyShield::wipeColor(uint16_t color, uint8_t n_pixels)
 {
+    uint32_t c = colorCvtRev(color);
     for (uint8_t i = 0; i < STRIPLEN; i++)
     {
         if (i < n_pixels)
         {
-            _px->Set(i, color & 0xffffff);
+            _px->Set(i, c & 0xffffff);
         }
         else
         {
@@ -47,17 +48,17 @@ void BlinkyShield::wipeColor(uint32_t color, uint8_t n_pixels)
 
 void BlinkyShield::red(uint8_t n_pixels)
 {
-    wipeColor(0xff0000, n_pixels);
+    wipeColor(RED, n_pixels);
 }
 
 void BlinkyShield::green(uint8_t n_pixels)
 {
-    wipeColor(0x00ff00, n_pixels);
+    wipeColor(GREEN, n_pixels);
 }
 
 void BlinkyShield::blue(uint8_t n_pixels)
 {
-    wipeColor(0x0000ff, n_pixels);
+    wipeColor(BLUE, n_pixels);
 }
 
 void BlinkyShield::off()
