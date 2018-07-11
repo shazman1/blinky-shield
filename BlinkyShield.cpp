@@ -86,7 +86,7 @@ void BlinkyShield::scroll(const char *fmt, ...)
     const uint8_t max_str_len = 100;
     char s[max_str_len] = {0};
     vsnprintf(s, max_str_len, fmt, args);
-    uint8_t len = strnlen(s, max_str_len);
+    uint8_t len = strlen(s);
     int len_in_px = len * 6;
     this->setTextWrap(false);
     for (int x = this->width(); x > -len_in_px; --x)
