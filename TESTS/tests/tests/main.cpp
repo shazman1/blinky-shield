@@ -40,7 +40,7 @@ int main()
     int number = 1;
     wait_ms(500);
     blinky_shield->clear();
-    blinky_shield->scroll("armMbed %i", number);
+    blinky_shield->scroll("SHAZMAN %i", number);
     /* code */
     return 0;
 }
