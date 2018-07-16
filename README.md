@@ -76,9 +76,11 @@ int main()
 3. Compile the program
 4. Connect the board via USB then use the following code in the terminal to communicate with the board:
 ```cpp
-sudo cu -l /dev/tty.usbmodem14332 -s 9600
+sudo cu -l /dev/tty.usbmodem -s 9600
 ```
-5. Transfer the compiled program to the board
+5. Place cursor at the end of 'usbmodem' and press tab 
+6. Use one of the given numbers as your port
+7. Transfer the compiled program to the board
 
 
 
